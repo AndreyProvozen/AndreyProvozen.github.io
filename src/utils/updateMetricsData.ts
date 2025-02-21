@@ -1,8 +1,8 @@
-import { type IncomingHttpHeaders } from 'http';
+import type { IncomingHttpHeaders } from 'http';
 
 import { UAParser } from 'ua-parser-js';
 
-import { type MetricsProps } from '@/constants';
+import type { MetricsProps } from '@/constants';
 
 import customFetch from './customFetch';
 import getIp from './getIp';

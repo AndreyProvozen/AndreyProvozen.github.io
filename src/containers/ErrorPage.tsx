@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 import { Header } from '@/components';
 
@@ -23,7 +23,7 @@ const Error: FC<Props> = ({ statusCode }) => (
       <p className="text-[10rem] max-mobile:text-[8rem] leading-none font-bold">{statusCode}</p>
       <p className="text-2xl font-bold max-mobile:text-base">OPPS! PAGE NOT FOUND</p>
       <p className="text-2xl mb-5 max-mobile:text-base">
-        {statusCode.toString()[0] === '4' ? 'An error occurred on the client' : 'An error occurred on the server'}
+        {statusCode.toString().startsWith('4') ? 'An error occurred on the client' : 'An error occurred on the server'}
       </p>
       <Link
         href="/"

@@ -1,4 +1,4 @@
-import { type FC, useMemo } from 'react';
+import type { FC } from 'react';
 
 import { SCREEN_SIZES } from '@/constants';
 import { useMediaQuery } from '@/utils';
@@ -13,10 +13,7 @@ type TabLinkProps = Pick<Props, 'isHomePageList'>;
 const TableLink: FC<TabLinkProps> = ({ isHomePageList }) => {
   const isMobile = useMediaQuery(SCREEN_SIZES.TABLET_SMALL_BELOW);
 
-  const linkContainerClasses = useMemo(
-    () => (isHomePageList ? 'bg-white rounded-md mb-5' : 'border-b border-gray'),
-    [isHomePageList]
-  );
+  const linkContainerClasses = isHomePageList ? 'bg-white rounded-md mb-5' : 'border-b border-gray';
 
   return (
     <div className={`w-full p-5 flex justify-between items-center ${linkContainerClasses}`}>
@@ -31,7 +28,7 @@ const TableLink: FC<TabLinkProps> = ({ isHomePageList }) => {
 };
 
 const LinksListSkeleton: FC<Props> = ({ isHomePageList = false, quantity = 3 }) => {
-  const skeletonList = useMemo(() => Array(quantity).fill(1), [quantity]);
+  const skeletonList = Array(quantity).fill(1);
 
   return (
     <>

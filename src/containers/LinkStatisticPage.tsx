@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useMemo, type FC } from 'react';
+import type { FC } from 'react';
 
 import { ChartBlock, HeroBlock, LinkSettingsBar, NotFoundSection } from '@/components';
 import { type FullLinkDataProps } from '@/constants';
@@ -19,7 +19,7 @@ const LinkStatistic: FC<Props> = ({ linkData }) => {
     threshold: 0.1,
   });
 
-  const shortLink = useMemo(() => `${API_HOST}/${linkData?.code}`, [linkData]);
+  const shortLink = `${API_HOST}/${linkData?.code}`;
 
   return (
     <>

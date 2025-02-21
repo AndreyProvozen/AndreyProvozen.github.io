@@ -1,4 +1,4 @@
-import { type FC, type ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import { type FC, type ReactElement, useEffect, useRef, useState } from 'react';
 
 import DropdownPopUp, { type DropdownDataProps } from './DropdownPopUp';
 import { DROPDOWN_TEST_IDS } from './testIds';
@@ -14,19 +14,19 @@ const Dropdown: FC<Props> = ({ dropdownData = [], placeholder, listContainerClas
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClickOutside = useCallback((event: MouseEvent) => {
+  const handleClickOutside = (event: MouseEvent) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setIsOpen(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
 
     return () => document.removeEventListener('click', handleClickOutside);
-  }, [dropdownRef, handleClickOutside]);
+  }, [dropdownRef]);
 
-  const toggleDropdown = useCallback(() => setIsOpen(prevState => !prevState), []);
+  const toggleDropdown = () => setIsOpen(prevState => !prevState);
 
   return (
     <div className="relative text-white" ref={dropdownRef}>

@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 const PaginationSkeleton: FC = () => (
   <div className="flex justify-center my-5 px-5">

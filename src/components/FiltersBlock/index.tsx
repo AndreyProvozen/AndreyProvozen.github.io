@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState, useCallback, type FC } from 'react';
+import { useEffect, useState, type FC, type ChangeEvent } from 'react';
 
 import { Heart } from '@/icons';
 
@@ -8,17 +8,14 @@ const FiltersBlock: FC = () => {
 
   const [link, setLink] = useState(query?.searchString || '');
 
-  const showFavoriteList = useMemo(() => query?.search === 'favorite', [query?.search]);
+  const showFavoriteList = query?.search === 'favorite';
 
-  const updateURL = useCallback(
-    (searchStringParam: string, favoriteParam: string) => {
-      const queryParams = [searchStringParam, favoriteParam].filter(Boolean).join('&');
-      const updatedURL = queryParams ? `?${queryParams}` : pathname;
+  const updateURL = (searchStringParam: string, favoriteParam: string) => {
+    const queryParams = [searchStringParam, favoriteParam].filter(Boolean).join('&');
+    const updatedURL = queryParams ? `?${queryParams}` : pathname;
 
-      push(updatedURL);
-    },
-    [push, pathname]
-  );
+    push(updatedURL);
+  };
 
   useEffect(() => {
     let timeoutId: string | number | NodeJS.Timeout;
@@ -38,7 +35,7 @@ const FiltersBlock: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [link, showFavoriteList]);
 
-  const onSearchChange = useCallback(event => setLink(event.target.value), []);
+  const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => setLink(event.target.value);
 
   return (
     <div className="flex justify-between w-full items-start border-b border-gray mb-5 gap-5">
@@ -52,7 +49,6 @@ const FiltersBlock: FC = () => {
         <p className="ml-2">Favorite</p>
       </button>
       <input
-        // ??????
         type="search"
         value={link}
         onChange={onSearchChange}

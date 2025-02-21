@@ -1,4 +1,4 @@
-import { type IncomingHttpHeaders } from 'http';
+import type { IncomingHttpHeaders } from 'http';
 
 /**
  * Get the language code from the provided HTTP headers.

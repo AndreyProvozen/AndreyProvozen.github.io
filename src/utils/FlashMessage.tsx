@@ -1,6 +1,6 @@
 import { useEffect, useRef, type RefCallback, type FC } from 'react';
 
-import { type FLASH_MESSAGE_TYPE } from '@/constants';
+import type { FLASH_MESSAGE_TYPE } from '@/constants';
 import Close from '@/icons/Close';
 import { removeFlashMessage } from '@/store/slices/flashMessages.slice';
 import { useAppDispatch, useAppSelector } from '@/store/storeHooks';
@@ -30,11 +30,7 @@ const FlashMessage: FC = () => {
           ref.style.display = 'none';
         });
 
-        setTimeout(() => {
-          if (isFlashMessagesExist) {
-            dispatch(removeFlashMessage(0));
-          }
-        }, 300);
+        setTimeout(() => dispatch(removeFlashMessage(0)), 300);
       }, 3000);
     }
 

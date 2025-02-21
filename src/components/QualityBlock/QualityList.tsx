@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 import { SCREEN_SIZES } from '@/constants';
 import { BarChart, Heart } from '@/icons';

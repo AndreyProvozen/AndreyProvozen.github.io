@@ -1,5 +1,5 @@
 import { signOut } from 'next-auth/react';
-import { type Dispatch, type FC, type SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { ModalWrapper } from '@/atoms';
 

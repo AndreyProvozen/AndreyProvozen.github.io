@@ -19,12 +19,12 @@ const LinkSettingsBar: FC<{ link: FullLinkDataProps }> = ({ link }) => {
   const [favoriteList, setFavoriteList] = useState<string[]>(JSON.parse((getCookie('favorite') as string) || '[]'));
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const isFavoriteLink = useMemo(() => favoriteList.includes(link.code), [link, favoriteList]);
-  const formatedDate = useMemo(() => new Date(link.createdAt).toDateString(), [link.createdAt]);
-
   useEffect(() => {
     setCookie('favorite', favoriteList);
   }, [favoriteList]);
+
+  const isFavoriteLink = favoriteList.includes(link.code);
+  const formattedDate = new Date(link.createdAt).toDateString();
 
   const barData = useMemo(
     () => [
@@ -86,7 +86,7 @@ const LinkSettingsBar: FC<{ link: FullLinkDataProps }> = ({ link }) => {
             <p className="bg-lightOrange font-bold p-2 ml-2">{link.clicked}</p>
           </div>
           <p className="border bg-darkGreen/20 border-darkGreen font-bold rounded-lg flex items-center px-3 py-2">
-            {formatedDate}
+            {formattedDate}
           </p>
         </div>
         <div className="flex justify-end gap-3 items-center">

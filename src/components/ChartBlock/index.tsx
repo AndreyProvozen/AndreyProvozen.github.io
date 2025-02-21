@@ -1,8 +1,8 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
-import { type FC, useMemo } from 'react';
+import type { FC } from 'react';
 import { Pie, Doughnut, Bar } from 'react-chartjs-2';
 
-import { type MetricsProps } from '@/constants';
+import type { MetricsProps } from '@/constants';
 import { getBarChartData, getPieChartData } from '@/utils';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
@@ -25,8 +25,8 @@ interface Props {
 }
 
 const ChartBlock: FC<Props> = ({ metrics }) => {
-  const pieChartMetrics = useMemo(() => metrics.slice(0, 4), [metrics]);
-  const barChartData = useMemo(() => getBarChartData(metrics[4].data), [metrics]);
+  const pieChartMetrics = metrics.slice(0, 4);
+  const barChartData = getBarChartData(metrics[4].data);
 
   return (
     <div className="grid grid-cols-2 grid-rows-3 gap-8">

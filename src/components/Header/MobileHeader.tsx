@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
-import { type FC, useState, useCallback, useMemo } from 'react';
+import { type FC, useState, useMemo } from 'react';
 
 import { Drover } from '@/atoms';
 import { Menu } from '@/icons';
@@ -22,7 +22,7 @@ const MobileHeader: FC<Props> = ({ textBlack }) => {
 
   const [isOpenDrover, setIsOpenDrover] = useState(false);
 
-  const handleToggle = useCallback(() => setIsOpenDrover(prev => !prev), []);
+  const handleToggle = () => setIsOpenDrover(prev => !prev);
 
   const menuMobile: MenuProps[] = useMemo(
     () => [

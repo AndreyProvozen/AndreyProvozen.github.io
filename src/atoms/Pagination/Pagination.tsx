@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { type FC, useCallback, useMemo } from 'react';
+import { type FC } from 'react';
 
 import { Chevron } from '@/icons';
 import { classNames } from '@/utils';
@@ -14,28 +14,25 @@ interface Props {
 const Pagination: FC<Props> = ({ perPage, count }) => {
   const { query, push } = useRouter();
 
-  const currentPage = useMemo(() => parseInt(query?.page as string, 10) || 0, [query]);
-  const totalPage = useMemo(() => Math.ceil(count / perPage), [count, perPage]);
+  const currentPage = parseInt(query?.page as string, 10) || 0;
+  const totalPage = Math.ceil(count / perPage);
 
-  const disabledForPrev = useMemo(() => currentPage === 0, [currentPage]);
-  const disabledForNext = useMemo(() => currentPage === totalPage - 1, [currentPage, totalPage]);
+  const disabledForPrev = currentPage === 0;
+  const disabledForNext = currentPage === totalPage - 1;
 
-  const pageCounter = useMemo(() => `Page ${currentPage + 1} of ${totalPage}`, [currentPage, totalPage]);
+  const pageCounter = `Page ${currentPage + 1} of ${totalPage}`;
 
-  const updatePage = useCallback(
-    (page: number) => {
-      push({ query: { ...query, page } }, undefined, { shallow: true });
-    },
-    [push, query]
-  );
+  const updatePage = (page: number) => {
+    push({ query: { ...query, page } }, undefined, { shallow: true });
+  };
 
-  const nextPage = useCallback(() => {
+  const nextPage = () => {
     if (!disabledForNext) updatePage(currentPage + 1);
-  }, [disabledForNext, updatePage, currentPage]);
+  };
 
-  const prevPage = useCallback(() => {
+  const prevPage = () => {
     if (!disabledForPrev) updatePage(currentPage - 1);
-  }, [currentPage, disabledForPrev, updatePage]);
+  };
 
   return (
     <div className="flex justify-center my-4">

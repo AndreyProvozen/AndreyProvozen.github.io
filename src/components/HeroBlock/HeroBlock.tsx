@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 import { Header } from '@/components';
 import { classNames, useIntersectionObserver } from '@/utils';

@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { type FormEvent, type ChangeEvent, useState, useCallback } from 'react';
+import { type FormEvent, type ChangeEvent, useState } from 'react';
 
 import { Header, InfoBlock, LinkDataBlock, QualityBlock } from '@/components';
 import LinksListSkeleton from '@/components/Skeleton/LinksListSkeleton';
@@ -32,27 +32,22 @@ const Home = () => {
 
   const [longLink, setLongLink] = useState('');
 
-  const handleOnSubmit = useCallback(
-    async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+  const handleOnSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-      const response = await addNewLink({ url: longLink });
+    const response = await addNewLink({ url: longLink });
 
-      setLongLink('');
-      dispatch(
-        addNewFlashMessage(
-          'error' in response && 'data' in response.error
-            ? { message: response.error.data as string, type: FLASH_MESSAGE_TYPE.ERROR }
-            : { message: 'Shortened link successfully added', type: FLASH_MESSAGE_TYPE.SUCCESSFUL }
-        )
-      );
-    },
-    [addNewLink, dispatch, longLink]
-  );
+    setLongLink('');
+    dispatch(
+      addNewFlashMessage(
+        'error' in response && 'data' in response.error
+          ? { message: response.error.data as string, type: FLASH_MESSAGE_TYPE.ERROR }
+          : { message: 'Shortened link successfully added', type: FLASH_MESSAGE_TYPE.SUCCESSFUL }
+      )
+    );
+  };
 
-  const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setLongLink(event.target.value);
-  }, []);
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setLongLink(event.target.value);
 
   return (
     <>

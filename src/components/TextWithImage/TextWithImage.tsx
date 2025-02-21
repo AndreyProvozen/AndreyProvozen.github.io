@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { type FC, useMemo } from 'react';
+import type { FC } from 'react';
 
 import { classNames, useIntersectionObserver } from '@/utils';
 
@@ -19,8 +19,8 @@ const TextWithImage: FC<Props> = ({ linkData, text, imageFirst, title, featuresL
     threshold: 0.3,
   });
 
-  const imageTransition = useMemo(() => (imageFirst ? 'animate__fadeInRight' : 'animate__fadeInLeft'), [imageFirst]);
-  const textTransition = useMemo(() => (imageFirst ? 'animate__fadeInLeft' : 'animate__fadeInRight'), [imageFirst]);
+  const imageTransition = imageFirst ? 'animate__fadeInRight' : 'animate__fadeInLeft';
+  const textTransition = imageFirst ? 'animate__fadeInLeft' : 'animate__fadeInRight';
 
   return (
     <div

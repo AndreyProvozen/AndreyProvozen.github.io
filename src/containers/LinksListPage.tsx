@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState, useMemo, type FC } from 'react';
+import { useState, type FC } from 'react';
 
 import { FiltersBlock, HeroBlock, LinkDataBlock, NotFoundSection } from '@/components';
 import LinksListSkeleton from '@/components/Skeleton/LinksListSkeleton';
@@ -10,9 +10,11 @@ import { useFetchLinksBySearchStringQuery } from '@/store/api/search.api';
 const LinksList: FC = () => {
   const { query } = useRouter();
 
-  const favorite = useMemo(() => query?.search === 'favorite', [query]);
-  const searchString = useMemo(() => query?.searchString as string, [query]);
-  const skip = useMemo(() => !favorite && !searchString, [searchString, favorite]);
+  const [perPage] = useState(9);
+
+  const favorite = query?.search === 'favorite';
+  const searchString = query?.searchString as string;
+  const skip = !favorite && !searchString;
 
   const sortedLinkData = useFetchLinksBySearchStringQuery(
     { favorite, searchString },
@@ -20,11 +22,7 @@ const LinksList: FC = () => {
   );
 
   const linkData = useGetLinksQuery({ perPage: 10 }, { skip: !skip });
-  const linksQuery = skip ? linkData : sortedLinkData;
-
-  const { data, isLoading } = linksQuery;
-
-  const [perPage] = useState(9);
+  const { data, isLoading } = skip ? linkData : sortedLinkData;
 
   return (
     <>

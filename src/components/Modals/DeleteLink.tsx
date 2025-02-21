@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { type Dispatch, type FC, type SetStateAction, useCallback, useMemo } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import { ModalWrapper } from '@/atoms';
 import { FLASH_MESSAGE_TYPE, type LinkDataProps } from '@/constants';
@@ -24,11 +24,11 @@ const DeleteLinkModal: FC<Props> = ({ setIsModalOpen, deletedLink, isStatisticPa
   const { push } = useRouter();
   const [deleteLink] = useDeleteLinkMutation();
 
-  const shortLink = useMemo(() => `${API_HOST}/${deletedLink?.code}`, [deletedLink?.code]);
+  const shortLink = `${API_HOST}/${deletedLink?.code}`;
 
-  const handleDeleteLink = useCallback(async () => {
+  const handleDeleteLink = async () => {
     const response = await deleteLink({ code: deletedLink?.code, userEmail: session?.user?.email });
-    // fix me error type
+
     dispatch(
       addNewFlashMessage(
         'error' in response && 'data' in response.error
@@ -40,7 +40,7 @@ const DeleteLinkModal: FC<Props> = ({ setIsModalOpen, deletedLink, isStatisticPa
     if (isStatisticPage) return push('/links');
 
     setIsModalOpen(false);
-  }, [deleteLink, deletedLink?.code, session?.user?.email, dispatch, isStatisticPage, push, setIsModalOpen]);
+  };
 
   return (
     <ModalWrapper title="Delete link" setIsModalOpen={setIsModalOpen} onConfirm={handleDeleteLink}>

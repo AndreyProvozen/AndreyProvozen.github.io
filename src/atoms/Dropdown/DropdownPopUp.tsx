@@ -1,4 +1,4 @@
-import { type Dispatch, type FC, type ReactElement, type SetStateAction, useCallback } from 'react';
+import { type Dispatch, type FC, type ReactElement, type SetStateAction } from 'react';
 
 import { classNames } from '@/utils';
 
@@ -18,13 +18,10 @@ interface Props {
 }
 
 const DropdownPopUp: FC<Props> = ({ dropdownData, listContainerClasses, setIsOpen }) => {
-  const handleFunction = useCallback(
-    (fieldFunction: DropdownDataProps['fieldFunction']) => {
-      fieldFunction();
-      setIsOpen(false);
-    },
-    [setIsOpen]
-  );
+  const handleFunction = (fieldFunction: DropdownDataProps['fieldFunction']) => {
+    fieldFunction();
+    setIsOpen(false);
+  };
 
   return (
     <div

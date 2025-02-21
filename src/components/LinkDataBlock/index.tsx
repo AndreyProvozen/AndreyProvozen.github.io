@@ -1,7 +1,7 @@
 import { getCookie, setCookie } from 'cookies-next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { type FC, useEffect, useState, useCallback } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
 import { SCREEN_SIZES, FLASH_MESSAGE_TYPE, type LinkDataProps } from '@/constants';
 import { addNewFlashMessage } from '@/store/slices/flashMessages.slice';
@@ -35,30 +35,27 @@ const LinkDataBlock: FC<Props> = ({ linksList, count, perPage, linkContainerClas
     setCookie('favorite', favoriteList);
   }, [favoriteList]);
 
-  const toggleFavorite = useCallback(
-    (isFavoriteLink: boolean, code: string) => {
-      if (isFavoriteLink) {
-        setFavoriteList(prev => prev.filter(item => item !== code));
-        dispatch(
-          addNewFlashMessage({
-            message: 'The link has been removed from the favorites list',
-            type: FLASH_MESSAGE_TYPE.SUCCESSFUL,
-          })
-        );
-
-        return null;
-      }
-
-      setFavoriteList(prev => [...prev, code]);
+  const toggleFavorite = (isFavoriteLink: boolean, code: string) => {
+    if (isFavoriteLink) {
+      setFavoriteList(prev => prev.filter(item => item !== code));
       dispatch(
         addNewFlashMessage({
-          message: 'Link has been added to the favorites list',
+          message: 'The link has been removed from the favorites list',
           type: FLASH_MESSAGE_TYPE.SUCCESSFUL,
         })
       );
-    },
-    [dispatch]
-  );
+
+      return null;
+    }
+
+    setFavoriteList(prev => [...prev, code]);
+    dispatch(
+      addNewFlashMessage({
+        message: 'Link has been added to the favorites list',
+        type: FLASH_MESSAGE_TYPE.SUCCESSFUL,
+      })
+    );
+  };
 
   return (
     <>

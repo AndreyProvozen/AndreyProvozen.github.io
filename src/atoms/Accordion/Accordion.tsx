@@ -1,4 +1,4 @@
-import { type FC, useCallback, useState } from 'react';
+import { type FC, useState } from 'react';
 
 import AccordionItem from './AccordionItem';
 
@@ -12,10 +12,7 @@ interface Props {
 const Accordion: FC<Props> = ({ accordionItems }) => {
   const [activeItem, setActiveItem] = useState<string | null>(null);
 
-  const toggleActiveItem = useCallback(
-    (questionId: string) => setActiveItem(prev => (prev !== questionId ? questionId : null)),
-    []
-  );
+  const toggleActiveItem = (questionId: string) => setActiveItem(prev => (prev !== questionId ? questionId : null));
 
   return (
     <>
